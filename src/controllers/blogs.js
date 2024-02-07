@@ -1,47 +1,64 @@
 const router = require('express').Router()
-
 const { Blog } = require('../models')
+const errorHandler = require('../middleware/errorHandler')
 
-router.get('/', async (req, res) => {
-  const blogs = await Blog.findAll()
-  res.json(blogs)
+router.get('/', async (req, res, next) => {
+  try {
+    const blogs = await Blog.findAll()
+    res.json(blogs)
+  } catch (error) {
+    next(error);
+  }
 })
 
-router.post('/', async (req, res) => {
+router.post('/', async (req, res, next) => {
   try {
     const blog = await Blog.create(req.body)
     res.json(blog)
   } catch(error) {
-    return res.status(400).json({ error })
+    next(error)
   }
 })
 
-router.get('/:id', async (req, res) => {
-  const blog = await Blog.findByPk(req.params.id)
-  if (blog) {
-    res.json(blog)
-  } else {
-    res.status(404).end()
+router.get('/:id', async (req, res, next) => {
+  const blog = await Blog.findByPk(req.params.id);
+  
+  if (!blog) {
+    const error = new Error('Blog not found');
+    error.name = 'NotFoundError';
+    next(error);
+    return; 
   }
-})
 
-router.delete('/:id', async (req, res) => {
-  const blog = await Blog.findByPk(req.params.id)
-  if (blog) {
-    await blog.destroy()
-  }
-  res.status(204).end()
-})
+  res.json(blog);
+});
 
-router.put('/:id', async (req, res) => {
-  const blog = await Blog.findByPk(req.params.id)
-  if (blog) {
-    blog.likes += 1
-    await blog.save()
-    res.json(blog)
-  } else {
-    res.status(404).end()
+router.delete('/:id', async (req, res, next) => {
+  try {
+    const blog = await Blog.findByPk(req.params.id)
+    if (blog) {
+      await blog.destroy()
+    }
+    res.status(204).end()
+  } catch(error) {
+    next(error)
   }
-})
+  })
+
+router.put('/:id', async (req, res, next) => {
+  const blog = await Blog.findByPk(req.params.id);
+  
+  if (!blog) {
+    const error = new Error('Blog not found');
+    error.name = 'NotFoundError';
+    next(error);
+    return; 
+  }
+  blog.likes += 1
+  await blog.save()
+  res.json(blog)
+});
+
+router.use(errorHandler)
 
 module.exports = router

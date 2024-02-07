@@ -6,3 +6,25 @@ content-type: application/json
   "author": "Matias Mäkynen",
   "likes": 1
 }
+
+###
+
+
+POST http://localhost:3001/api/blogs/ HTTP/1.1 
+content-type: application/json
+
+{ "title": "Added blog",
+  "author": "Matias Mäkynen",
+  "likes": 1
+}
+
+###
+
+POST http://localhost:3001/api/blogs/ HTTP/1.1 
+content-type: application/json
+
+{ "title": null,
+  "url": "www.google.com",
+  "author": "Matias Mäkynen",
+  "likes": 1
+}
