@@ -43,7 +43,6 @@ app.get('/ping', async (req, res) => {
   res.json('pong')
 })
 app.get('/api/blogs', async (req, res) => {
-  //const blogs = await sequelize.query("SELECT * FROM blogs", { type: QueryTypes.SELECT })
   const blogs = await Blog.findAll()
   console.log(JSON.stringify(blogs))
   res.json(blogs)
@@ -51,7 +50,6 @@ app.get('/api/blogs', async (req, res) => {
 
 app.get('/api/blogs/:id', async (req, res) => {
   const blogId = parseInt(req.params.id);
-  //const blog = await sequelize.query(`SELECT * FROM blogs WHERE ID=${blogId}`, { type: QueryTypes.SELECT })
   const blog = await Blog.findByPk(blogId)
   console.log(JSON.stringify(blog))
   if (blog) {
@@ -82,35 +80,6 @@ app.post('/api/blogs/', async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
-
-
-// app.post('/api/blogs/', async (req, res) => {
-//   const author = req.body.author
-//   const url = req.body.url
-//   const title = req.body.title
-//   likes = req.body.likes
-  
-//   sequelize.query(`
-//     INSERT INTO blogs (author, url, title) 
-//     VALUES (
-//       :author,
-//       :url,
-//       :title
-//     )
-//   `, {
-//     replacements: {
-//       author: author,
-//       url: url,
-//       title: title
-//     }
-//   })
-//     .then(result => {
-//       console.log('Insert successful:', result);
-//     })
-//     .catch(error => {
-//       console.error('Error executing insert query:', error);
-//     });
-//   })
 
 app.delete('/api/blogs/:id', async (req, res) => {
   const blogId = parseInt(req.params.id);
