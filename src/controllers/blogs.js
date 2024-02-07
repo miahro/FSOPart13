@@ -21,13 +21,13 @@ router.post('/', async (req, res, next) => {
 })
 
 router.get('/:id', async (req, res, next) => {
-  const blog = await Blog.findByPk(req.params.id);
+  const blog = await Blog.findByPk(req.params.id)
   
   if (!blog) {
-    const error = new Error('Blog not found');
-    error.name = 'NotFoundError';
-    next(error);
-    return; 
+    const error = new Error('Blog not found')
+    error.name = 'NotFoundError'
+    next(error)
+    return
   }
 
   res.json(blog);
