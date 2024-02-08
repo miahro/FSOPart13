@@ -3,7 +3,8 @@ const errorHandler = (err, req, res, next) => {
   console.log('errorHandle Middleware Error:', err);
 
   if (err.name === 'SequelizeValidationError') {
-    return res.status(400).json({ error: 'Validation Error', details: err.errors });
+    console.log(err)
+    return res.status(400).json({ error: 'Validation Error', details: err.message });
   }
 
   if (err.name === 'NotFoundError') {
