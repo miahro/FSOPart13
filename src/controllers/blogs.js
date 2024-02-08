@@ -1,4 +1,5 @@
 const router = require('express').Router()
+const { Op } = require('sequelize')
 const { Blog } = require('../models')
 const { User } = require('../models')
 const errorHandler = require('../middleware/errorHandler')
@@ -6,6 +7,14 @@ const tokenExtractor = require('../middleware/tokenExtractor')
 
 
 router.get('/', async (req, res, next) => {
+
+  let where = {}
+  if (req.query.search) {
+    where.title = {
+      [Op.substring]: req.query.search
+    }
+  }
+
   try {
     const blogs = await Blog.findAll({
       attributes: {
@@ -15,6 +24,7 @@ router.get('/', async (req, res, next) => {
         model: User,
         attributes: ['name']
       },
+      where
     });
 
     const formattedBlogs = blogs.map(blog => ({
