@@ -1,7 +1,7 @@
 POST http://localhost:3001/api/blogs/ HTTP/1.1 
 content-type: application/json
 
-{ "title": "Added blog",
+{ "title": "Added blog 2",
   "url": "www.google.com",
   "author": "Matias Mäkynen",
   "likes": 1
@@ -55,4 +55,17 @@ content-type: application/json
 
 { "name": "Teuvo Hakkarainen",
   "username": "teukka@hotmail.com"
+}
+
+###
+
+POST http://localhost:3001/api/blogs/ HTTP/1.1 
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRldWtrYUBob3RtYWlsLmNvbSIsImlkIjoyLCJpYXQiOjE3MDczODc1ODZ9.CJQJ62wmYTLNCwpNVGg1c_nQPDrroAgXMqRr6HsSmMA
+
+
+{ "title": "Added blog 3",
+  "url": "www.google.com",
+  "author": "Matias Mäkynen",
+  "likes": 1
 }

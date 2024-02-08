@@ -1,4 +1,5 @@
 const { Model, DataTypes } = require('sequelize')
+const { User } = require('./user')
 
 const { sequelize } = require('../util/db')
 
@@ -24,7 +25,7 @@ Blog.init({
   likes: {
     type: DataTypes.INTEGER,
     default: 0
-  }
+  },
 }, {
   sequelize,
   underscored: true,

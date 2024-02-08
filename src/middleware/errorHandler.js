@@ -1,6 +1,5 @@
 const errorHandler = (err, req, res, next) => {
   console.error('errorHandle Middleware Error:', err);
-  console.log('errorHandle Middleware Error:', err);
 
   if (err.name === 'SequelizeValidationError') {
     console.log(err)
