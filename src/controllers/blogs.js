@@ -13,10 +13,12 @@ router.get('/', async (req, res, next) => {
     where = {
       [Op.or]: [{
         title: {
-          [Op.substring]: req.query.search}
+          [Op.iLike]: `%${req.query.search}%`
+        }
       }, {
         author: {
-          [Op.substring]: req.query.search}
+          [Op.iLike]: `%${req.query.search}%`
+        }
         }]
     }
   }
@@ -30,7 +32,10 @@ router.get('/', async (req, res, next) => {
         model: User,
         attributes: ['name']
       },
-      where
+      where,
+      order: [
+        ['likes', 'DESC'],
+      ]
     });
 
     const formattedBlogs = blogs.map(blog => ({

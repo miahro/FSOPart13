@@ -88,9 +88,9 @@ content-type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRldWtrYUBob3RtYWlsLmNvbSIsImlkIjoyLCJpYXQiOjE3MDczOTY4Nzd9.kZg1NI2O3OyFDJchLmgOKTOaPokKYHALeXYtb-JODoY
 
 
-{ "title": "Matias blogi",
+{ "title": "super blog",
   "url": "www.google.com",
-  "author": "Paavo Väyrynen",
-  "likes": 1
+  "author": "Ghost writer",
+  "likes": 3
 }
 
