@@ -10,6 +10,11 @@ const errorHandler = (err, req, res, next) => {
     return res.status(404).json({ error: 'Resource Not Found' });
   }
 
+  if (err.name === 'AuthorizationError') {
+    return res.status(401).json({ error: 'Authorization Error' });
+  }
+
+
   res.status(500).json({ error: 'Internal Server Error' });
 };
 

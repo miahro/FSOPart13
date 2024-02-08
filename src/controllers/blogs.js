@@ -37,12 +37,17 @@ router.get('/:id', async (req, res, next) => {
   res.json(blog);
 });
 
-router.delete('/:id', async (req, res, next) => {
+router.delete('/:id', tokenExtractor, async (req, res, next) => {
   try {
+    const user = await User.findByPk(req.decodedToken.id)
     const blog = await Blog.findByPk(req.params.id)
-    if (blog) {
-      await blog.destroy()
+    if (!blog || !(user.id == blog.userId)) {
+      const err = new Error('Only creator of blog can delete blog')
+      err.name = 'AuthorizationError'
+      next(err)
+      return
     }
+    await blog.destroy()
     res.status(204).end()
   } catch(error) {
     next(error)

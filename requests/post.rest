@@ -59,12 +59,23 @@ content-type: application/json
 
 ###
 
+
+POST http://localhost:3001/api/users/ HTTP/1.1 
+content-type: application/json
+
+{ "name": "Paavo Väyrynen",
+  "username": "pave@hotmail.com"
+}
+
+###
+
+
 POST http://localhost:3001/api/blogs/ HTTP/1.1 
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRldWtrYUBob3RtYWlsLmNvbSIsImlkIjoyLCJpYXQiOjE3MDczODc1ODZ9.CJQJ62wmYTLNCwpNVGg1c_nQPDrroAgXMqRr6HsSmMA
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRldWtrYUBob3RtYWlsLmNvbSIsImlkIjoyLCJpYXQiOjE3MDczOTEzOTl9.LBKquLo0uncMYtkGIbhpagY5yterrh9vQEmv3YJfmUQ
 
 
-{ "title": "Added blog 3",
+{ "title": "Added blog 4",
   "url": "www.google.com",
   "author": "Matias Mäkynen",
   "likes": 1
