@@ -44,6 +44,7 @@ router.get('/', async (req, res, next) => {
       url: blog.url,
       title: blog.title,
       likes: blog.likes,
+      year: blog.year,
       user: blog.user ? blog.user.name : null,
     }));
 
@@ -88,7 +89,8 @@ router.get('/:id', async (req, res, next) => {
     url: blog.url,
     title: blog.title,
     likes: blog.likes,
-    user: blog['user.name'] || null // Access the user's name directly from the raw JSON
+    year: blog.year,
+    user: blog['user.name'] || null
   };
 
   res.json(formattedBlog);
