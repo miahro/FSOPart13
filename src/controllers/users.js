@@ -1,11 +1,19 @@
 const router = require('express').Router()
+const { Blog } = require('../models')
 const errorHandler = require('../middleware/errorHandler')
 
 const { User } = require('../models')
 
 router.get('/', async (req, res, next) => {
   try {
-    const users = await User.findAll()
+    const users = await User.findAll({
+      include: {
+        model: Blog,
+        attributes: {
+          exclude: ['userId'] 
+        }
+      }
+    })
     res.json(users)
   } catch (error) {
     next(error)
@@ -23,7 +31,15 @@ router.post('/', async (req, res, next) => {
 
 router.get('/:username', async (req, res, next) => {
     const username = req.params.username;
-    const user = await User.findOne({ where: { username: username } });
+    const user = await User.findOne({
+      where: { username: username },
+      include: {
+        model: Blog,
+        attributes: {
+          exclude: ['userId'] 
+        }
+      }
+    });
 
     if (!user) {
       const error = new Error('User not found')

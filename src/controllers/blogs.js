@@ -3,16 +3,34 @@ const { Blog } = require('../models')
 const { User } = require('../models')
 const errorHandler = require('../middleware/errorHandler')
 const tokenExtractor = require('../middleware/tokenExtractor')
-//const tokenExtractor = require('.../middleware/tokenExtractor')
+
 
 router.get('/', async (req, res, next) => {
   try {
-    const blogs = await Blog.findAll()
-    res.json(blogs)
+    const blogs = await Blog.findAll({
+      attributes: {
+        exclude: ['userId']
+        },
+      include: {
+        model: User,
+        attributes: ['name']
+      },
+    });
+
+    const formattedBlogs = blogs.map(blog => ({
+      id: blog.id,
+      author: blog.author,
+      url: blog.url,
+      title: blog.title,
+      likes: blog.likes,
+      user: blog.user ? blog.user.name : null,
+    }));
+
+    res.json(formattedBlogs);
   } catch (error) {
     next(error);
   }
-})
+});
 
 router.post('/', tokenExtractor, async (req, res, next) => {
   try {
@@ -25,7 +43,16 @@ router.post('/', tokenExtractor, async (req, res, next) => {
 })
 
 router.get('/:id', async (req, res, next) => {
-  const blog = await Blog.findByPk(req.params.id)
+  const blog = await Blog.findByPk(req.params.id, {
+    attributes: {
+      exclude: ['userId']
+      },
+    include: {
+      model: User,
+      attributes: ['name']
+    },
+    raw: true
+  })
   
   if (!blog) {
     const error = new Error('Blog not found')
@@ -34,7 +61,16 @@ router.get('/:id', async (req, res, next) => {
     return
   }
 
-  res.json(blog);
+  const formattedBlog = {
+    id: blog.id,
+    author: blog.author,
+    url: blog.url,
+    title: blog.title,
+    likes: blog.likes,
+    user: blog['user.name'] || null // Access the user's name directly from the raw JSON
+  };
+
+  res.json(formattedBlog);
 });
 
 router.delete('/:id', tokenExtractor, async (req, res, next) => {
