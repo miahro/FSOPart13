@@ -1,5 +1,6 @@
-const Sequelize = require('sequelize')
-const { User, Blog } = require('../models')
+//const Sequelize = require('sequelize')
+const { User } = require('../models')
+//const { Blog } = require('../models')
 
 async function seed() {
   try {

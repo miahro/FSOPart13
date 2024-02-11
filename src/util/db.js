@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
 const { DATABASE_URL } = require('./config')
 const { Umzug, SequelizeStorage } = require('umzug')
-const path = require('path');
+const path = require('path')
 
 const sequelize = new Sequelize(DATABASE_URL)
 
@@ -13,11 +13,11 @@ const runMigrations = async () => {
     storage: new SequelizeStorage({ sequelize, tableName: 'migrations' }),
     context: sequelize.getQueryInterface(),
     logger: console,  })
-    const migrations = await migrator.up()
-    console.log('Migrations up to date', {
-      files: migrations.map((mig) => mig.name),
-    })
-  }
+  const migrations = await migrator.up()
+  console.log('Migrations up to date', {
+    files: migrations.map((mig) => mig.name),
+  })
+}
 
 const connectToDatabase = async () => {
   try {

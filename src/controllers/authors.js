@@ -13,7 +13,7 @@ router.get('/', async (req, res, next) => {
       ],
       group: 'author',
       order: [[Sequelize.literal('"totalLikes"'), 'DESC']]
-    });
+    })
 
     res.json(authors)
   } catch (error) {

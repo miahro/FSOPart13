@@ -1,5 +1,5 @@
 const { Model, DataTypes } = require('sequelize')
-const { User } = require('./user')
+//const { User } = require('./user')
 
 const { sequelize } = require('../util/db')
 
