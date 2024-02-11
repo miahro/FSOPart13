@@ -36,11 +36,16 @@ router.get('/:username', async (req, res, next) => {
       include: [{
         model: Blog,
         as: 'readings',
+        through: {
+          as: 'reading_list',
+          attributes: ['id', 'read'],
+        }
       }],
     })
     if (!user) {
       throw Error('User not found!')
     }
+
     const modifiedUser = {
       name: user.name,
       username: user.username,
@@ -50,8 +55,10 @@ router.get('/:username', async (req, res, next) => {
         title: blog.title,
         author: blog.author,
         likes: blog.likes,
-        year: blog.year
-      }))
+        year: blog.year,
+        readinglists: blog.reading_list ? { id: blog.reading_list.id, read: blog.reading_list.read } : null
+      })),
+      readinglists: user.reading_list
     }
 
     res.json(modifiedUser)

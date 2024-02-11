@@ -13,3 +13,5 @@ GET http://localhost:3001/api/users/teukka@hotmail.com
 GET http://localhost:3001/api/users/non-existing-user
 
 ###
+
+GET http://localhost:3001/api/users/pave@hotmail.com
