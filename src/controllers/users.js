@@ -1,8 +1,7 @@
 const router = require('express').Router()
-const { Blog } = require('../models')
+const { Blog, User } = require('../models')
 const errorHandler = require('../middleware/errorHandler')
 
-const { User } = require('../models')
 
 router.get('/', async (req, res, next) => {
   try {
@@ -30,24 +29,35 @@ router.post('/', async (req, res, next) => {
 })
 
 router.get('/:username', async (req, res, next) => {
-  const username = req.params.username
-  const user = await User.findOne({
-    where: { username: username },
-    include: {
-      model: Blog,
-      attributes: {
-        exclude: ['userId']
-      }
+  try {
+    const user = await User.findOne({
+      where: { username: req.params.username },
+      attributes: ['name', 'username'] ,
+      include: [{
+        model: Blog,
+        as: 'readings',
+      }],
+    })
+    if (!user) {
+      throw Error('User not found!')
     }
-  })
+    const modifiedUser = {
+      name: user.name,
+      username: user.username,
+      readings: user.readings.map(blog => ({
+        id: blog.id,
+        url: blog.url,
+        title: blog.title,
+        author: blog.author,
+        likes: blog.likes,
+        year: blog.year
+      }))
+    }
 
-  if (!user) {
-    const error = new Error('User not found')
-    error.name = 'NotFoundError'
+    res.json(modifiedUser)
+  } catch (error) {
     next(error)
-    return
   }
-  res.json(user)
 })
 
 router.put('/:username', async (req, res, next) => {
