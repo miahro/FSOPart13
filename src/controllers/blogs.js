@@ -5,7 +5,6 @@ const { User } = require('../models')
 const errorHandler = require('../middleware/errorHandler')
 const tokenExtractor = require('../middleware/tokenExtractor')
 
-
 router.get('/', async (req, res, next) => {
 
   let where = {}
