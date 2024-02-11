@@ -1,10 +1,6 @@
 const router = require('express').Router()
-//const { Op } = require('sequelize')
-//const { Blog } = require('../models')
-//const { User, List } = require('../models')
 const { User, List } = require('../models')
 
-//const { List } = require('../models/list')
 const errorHandler = require('../middleware/errorHandler')
 const tokenExtractor = require('../middleware/tokenExtractor')
 
@@ -16,12 +12,6 @@ router.post('/', tokenExtractor, async (req, res, next) => {
     if (user.id !== req.body.userId) {
       throw Error ('AuthorizationError')
     }
-    // const hardcodedData = {
-    //   userId: 1,
-    //   blogId: 1,
-    //   read: false
-    // }
-    // const list = await List.create( hardcodedData )
     const list = await List.create( { ...req.body, read: false } )
     res.json(list)
   } catch(error) {
@@ -29,6 +19,20 @@ router.post('/', tokenExtractor, async (req, res, next) => {
   }
 })
 
+router.put('/:id', tokenExtractor, async (req, res, next) => {
+  const user = await User.findByPk(req.decodedToken.id)
+  try {
+    const list = await List.findByPk(req.params.id)
+    if (user.id !== list.userId) {
+      throw Error ('AuthorizationError')
+    }
+    list.read = req.body.read
+    await list.save()
+    res.json(list)
+  } catch(error) {
+    next(error)
+  }
+})
 
 router.use(errorHandler)
 
