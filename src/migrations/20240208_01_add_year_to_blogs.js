@@ -8,6 +8,6 @@ module.exports = {
     })
   },
   down: async ({ context: queryInterface }) => {
-    await queryInterface.removeColumn('blogs', 'year');
+    await queryInterface.removeColumn('blogs', 'year')
   },
 }

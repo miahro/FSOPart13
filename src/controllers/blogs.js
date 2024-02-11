@@ -19,7 +19,7 @@ router.get('/', async (req, res, next) => {
         author: {
           [Op.iLike]: `%${req.query.search}%`
         }
-        }]
+      }]
     }
   }
 
@@ -27,7 +27,7 @@ router.get('/', async (req, res, next) => {
     const blogs = await Blog.findAll({
       attributes: {
         exclude: ['userId']
-        },
+      },
       include: {
         model: User,
         attributes: ['name']
@@ -36,7 +36,7 @@ router.get('/', async (req, res, next) => {
       order: [
         ['likes', 'DESC'],
       ]
-    });
+    })
 
     const formattedBlogs = blogs.map(blog => ({
       id: blog.id,
@@ -46,18 +46,18 @@ router.get('/', async (req, res, next) => {
       likes: blog.likes,
       year: blog.year,
       user: blog.user ? blog.user.name : null,
-    }));
+    }))
 
-    res.json(formattedBlogs);
+    res.json(formattedBlogs)
   } catch (error) {
-    next(error);
+    next(error)
   }
-});
+})
 
 router.post('/', tokenExtractor, async (req, res, next) => {
   try {
     const user = await User.findByPk(req.decodedToken.id)
-    const blog = await Blog.create({ ...req.body, userId: user.id})
+    const blog = await Blog.create({ ...req.body, userId: user.id })
     res.json(blog)
   } catch(error) {
     next(error)
@@ -68,14 +68,14 @@ router.get('/:id', async (req, res, next) => {
   const blog = await Blog.findByPk(req.params.id, {
     attributes: {
       exclude: ['userId']
-      },
+    },
     include: {
       model: User,
       attributes: ['name']
     },
     raw: true
   })
-  
+
   if (!blog) {
     const error = new Error('Blog not found')
     error.name = 'NotFoundError'
@@ -91,16 +91,16 @@ router.get('/:id', async (req, res, next) => {
     likes: blog.likes,
     year: blog.year,
     user: blog['user.name'] || null
-  };
+  }
 
-  res.json(formattedBlog);
-});
+  res.json(formattedBlog)
+})
 
 router.delete('/:id', tokenExtractor, async (req, res, next) => {
   try {
     const user = await User.findByPk(req.decodedToken.id)
     const blog = await Blog.findByPk(req.params.id)
-    if (!blog || !(user.id == blog.userId)) {
+    if (!blog || !(user.id === blog.userId)) {
       const err = new Error('Only creator of blog can delete blog')
       err.name = 'AuthorizationError'
       next(err)
@@ -111,21 +111,21 @@ router.delete('/:id', tokenExtractor, async (req, res, next) => {
   } catch(error) {
     next(error)
   }
-  })
+})
 
 router.put('/:id', async (req, res, next) => {
-  const blog = await Blog.findByPk(req.params.id);
-  
+  const blog = await Blog.findByPk(req.params.id)
+
   if (!blog) {
-    const error = new Error('Blog not found');
-    error.name = 'NotFoundError';
-    next(error);
-    return; 
+    const error = new Error('Blog not found')
+    error.name = 'NotFoundError'
+    next(error)
+    return
   }
   blog.likes += 1
   await blog.save()
   res.json(blog)
-});
+})
 
 router.use(errorHandler)
 

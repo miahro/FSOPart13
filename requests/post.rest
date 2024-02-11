@@ -85,7 +85,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRld
 
 POST http://localhost:3001/api/blogs/ HTTP/1.1 
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRldWtrYUBob3RtYWlsLmNvbSIsImlkIjoxLCJpYXQiOjE3MDc0MDkwMDV9.0Y7Gak8G1kt02AoHTOjd37qFznannU7C5gbx37ADdQU
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRldWtrYUBob3RtYWlsLmNvbSIsImlkIjoxLCJpYXQiOjE3MDc2NDU0MTd9.UlKR6j9Y88wR79GMBgeX_cOJOZl_QEA6_sNTfdKRPEI
 
 
 { "title": "normal blog",
