@@ -100,14 +100,14 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRld
 
 POST http://localhost:3001/api/blogs/ HTTP/1.1 
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRldWtrYUBob3RtYWlsLmNvbSIsImlkIjoxLCJpYXQiOjE3MDc2NTIyNDd9.wywpOlwg1E98Y1tZoIQmW9WJeaJA07W8PVHB-gfz_z8
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRldWtrYUBob3RtYWlsLmNvbSIsImlkIjoxLCJpYXQiOjE3MDc3NDc1Mzh9.gUEloR5WyeYDem2n2b6MvzXgd9b8EX5WEtxKEg0TnoM
 
 
-{ "title": "new blog",
+{ "title": "One more blog",
   "url": "www.google.com",
-  "author": "Ghost writer",
-  "likes": 3,
-  "year": 1999
+  "author": "Matias Mäkynen",
+  "likes": 0,
+  "year": 2012
 }
 
 ###
@@ -125,8 +125,11 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRld
 
 
 POST http://localhost:3001/api/readinglists/ HTTP/1.1 
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRldWtrYUBob3RtYWlsLmNvbSIsImlkIjoxLCJpYXQiOjE3MDc2NTIyNDd9.wywpOlwg1E98Y1tZoIQmW9WJeaJA07W8PVHB-gfz_z8
 content-type: application/json
 
 { "blogId": 3,
   "userId": 1
 }
+
+

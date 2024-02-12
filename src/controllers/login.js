@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken')
 const router = require('express').Router()
+const { Session } = require('../models')
 
 const { SECRET } = require('../util/config')
 const User = require('../models/user')
@@ -27,6 +28,8 @@ router.post('/', async (request, response) => {
 
   const token = jwt.sign(userForToken, SECRET)
   console.log('token: ', token)
+
+  await Session.create( { token: token, userId: userForToken.id } )
 
   response
     .status(200)

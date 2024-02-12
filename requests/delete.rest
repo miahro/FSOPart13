@@ -7,3 +7,10 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRld
 ###
 DELETE http://localhost:3001/api/blogs/32
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InBhdmVAaG90bWFpbC5jb20iLCJpZCI6MywiaWF0IjoxNzA3MzkxNDgyfQ.pU_kkDjF_7QLpSXEg6vyYgaIz8F_5aVyQjE2Kn8lFWM
+
+
+###
+DELETE http://localhost:3001/api/logout
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRldWtrYUBob3RtYWlsLmNvbSIsImlkIjoxLCJpYXQiOjE3MDc3NDQ2MjJ9.W76PIjtP4zLJmFrt2DuM0UU0k7hdumF7Gl6qwfZFAa8
+content-type: application/json
+

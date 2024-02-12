@@ -19,17 +19,10 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-router.post('/', async (req, res, next) => {
-  try {
-    const user = await User.create(req.body)
-    res.json(user)
-  } catch(error) {
-    next(error)
-  }
-})
-
 router.get('/:username', async (req, res, next) => {
   try {
+    const where = {}
+    if (req.query.read) where.read = req.query.read
     const user = await User.findOne({
       where: { username: req.params.username },
       attributes: ['name', 'username'] ,
@@ -39,6 +32,7 @@ router.get('/:username', async (req, res, next) => {
         through: {
           as: 'reading_list',
           attributes: ['id', 'read'],
+          where
         }
       }],
     })
@@ -46,6 +40,7 @@ router.get('/:username', async (req, res, next) => {
       throw Error('User not found!')
     }
 
+    console.log(user)
     const modifiedUser = {
       name: user.name,
       username: user.username,
